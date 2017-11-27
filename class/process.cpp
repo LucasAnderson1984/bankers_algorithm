@@ -6,12 +6,13 @@ Process::Process(char i, Resource* r) {
 }
 
 void Process::run() {
-  this_thread::sleep_for(chrono::milliseconds(500));
-  resource->acquire(id);
-  this_thread::sleep_for(chrono::milliseconds(500));
-  resource->acquire(id);
-  this_thread::sleep_for(chrono::milliseconds(500));
-  resource->release(id);
-  this_thread::sleep_for(chrono::milliseconds(500));
-  resource->release(id);
+  for (int i = 0; i < 2; i++) {
+    this_thread::sleep_for(chrono::milliseconds(500));
+    resource->acquire(id);
+  }
+
+  for (int i = 0; i < 2; i++) {
+    this_thread::sleep_for(chrono::milliseconds(500));
+    resource->release(id);
+  }
 }
